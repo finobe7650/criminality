@@ -1,0 +1,14 @@
+--//If you skid of this thats actually sad 
+
+local StaminaTake = getrenv()._G.S_Take 
+local StaminaFunc = getupvalue(StaminaTake, 2)
+
+for i,v in pairs(getupvalues(StaminaFunc)) do 
+    if type(v) == "function" and getinfo(v).name == "Upt_S" then 
+        local oldFunc; 
+        oldFunc = hookfunction(v, function(...)
+            getupvalue(StaminaFunc, 6).S = 100
+            return oldFunc(...)
+        end)
+    end
+end
